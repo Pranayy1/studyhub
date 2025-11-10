@@ -45,10 +45,12 @@ export const RGPV_COURSES = [
 		semesters: (() => {
 			const semesters = commonSemesters("CSE", "btech-cse", "rgpv-notes");
 			// Override specific subjects with Google Drive links
+			
+			// Semester 1 subjects
 			semesters[0].subjects[0] = { 
-				id: 'CSE-s1-subj2', 
-				name: 'M1e', 
-				description: 'Your subject description here', 
+				id: 'CSE-s1-subj1', 
+				name: 'Mathematics-I', 
+				description: 'Engineering Mathematics-I', 
 				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
 				pdfSource: 'google-drive',
 				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
@@ -56,13 +58,183 @@ export const RGPV_COURSES = [
 			};
 			semesters[0].subjects[1] = { 
 				id: 'CSE-s1-subj2', 
-				name: 'M2', 
-				description: 'Your subject description here', 
+				name: 'Physics', 
+				description: 'Engineering Physics', 
 				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
 				pdfSource: 'google-drive',
 				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
 				isAvailable: true
 			};
+			semesters[0].subjects[2] = { 
+				id: 'CSE-s1-subj3', 
+				name: 'Basic Electrical Engineering', 
+				description: 'Fundamentals of Electrical Engineering', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[0].subjects[3] = { 
+				id: 'CSE-s1-subj4', 
+				name: 'Engineering Mechanics', 
+				description: 'Basic Engineering Mechanics', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[0].subjects[4] = { 
+				id: 'CSE-s1-subj5', 
+				name: 'English for Communication', 
+				description: 'Communication Skills', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+
+			// Semester 2 subjects
+			semesters[1].subjects[0] = { 
+				id: 'CSE-s2-subj1', 
+				name: 'Mathematics-II', 
+				description: 'Engineering Mathematics-II', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[1].subjects[1] = { 
+				id: 'CSE-s2-subj2', 
+				name: 'Chemistry', 
+				description: 'Engineering Chemistry', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[1].subjects[2] = { 
+				id: 'CSE-s2-subj3', 
+				name: 'Basic Electronics Engineering', 
+				description: 'Fundamentals of Electronics', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[1].subjects[3] = { 
+				id: 'CSE-s2-subj4', 
+				name: 'Engineering Graphics', 
+				description: 'Technical Drawing', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[1].subjects[4] = { 
+				id: 'CSE-s2-subj5', 
+				name: 'Programming for Problem Solving', 
+				description: 'C Programming', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+
+			// Semester 3 subjects
+			semesters[2].subjects[0] = { 
+				id: 'CSE-s3-subj1', 
+				name: 'Mathematics-III', 
+				description: 'Engineering Mathematics-III', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[2].subjects[1] = { 
+				id: 'CSE-s3-subj2', 
+				name: 'Data Structures', 
+				description: 'Data Structures and Algorithms', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[2].subjects[2] = { 
+				id: 'CSE-s3-subj3', 
+				name: 'Digital Logic & Computer Organization', 
+				description: 'Computer Organization', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[2].subjects[3] = { 
+				id: 'CSE-s3-subj4', 
+				name: 'Discrete Mathematics', 
+				description: 'Discrete Structures', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[2].subjects[4] = { 
+				id: 'CSE-s3-subj5', 
+				name: 'Object Oriented Programming', 
+				description: 'OOP with C++/Java', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+
+			// Semester 4 subjects
+			semesters[3].subjects[0] = { 
+				id: 'CSE-s4-subj1', 
+				name: 'Computer Architecture', 
+				description: 'Advanced Computer Architecture', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[3].subjects[1] = { 
+				id: 'CSE-s4-subj2', 
+				name: 'Operating Systems', 
+				description: 'Operating System Concepts', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[3].subjects[2] = { 
+				id: 'CSE-s4-subj3', 
+				name: 'Microprocessor & Interfacing', 
+				description: '8085/8086 Microprocessor', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[3].subjects[3] = { 
+				id: 'CSE-s4-subj4', 
+				name: 'Design & Analysis of Algorithms', 
+				description: 'Algorithm Design', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[3].subjects[4] = { 
+				id: 'CSE-s4-subj5', 
+				name: 'Probability & Statistics', 
+				description: 'Probability and Statistics', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+
+			// Semester 5 subjects
 			semesters[4].subjects[0] = { 
 				id: 'CSE-s1-subj2', 
 				name: 'Toc', 
@@ -136,6 +308,63 @@ export const RGPV_COURSES = [
 				isAvailable: true
 			};
 
+			// Semester 7 subjects
+			semesters[6].subjects[0] = { 
+				id: 'CSE-s7-subj1', 
+				name: 'Cloud Computing', 
+				description: 'Cloud Computing Technologies', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[6].subjects[1] = { 
+				id: 'CSE-s7-subj2', 
+				name: 'Artificial Intelligence', 
+				description: 'AI Fundamentals', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[6].subjects[2] = { 
+				id: 'CSE-s7-subj3', 
+				name: 'Mobile Application Development', 
+				description: 'Android/iOS Development', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+
+			// Semester 8 subjects
+			semesters[7].subjects[0] = { 
+				id: 'CSE-s8-subj1', 
+				name: 'Big Data Analytics', 
+				description: 'Big Data Processing', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[7].subjects[1] = { 
+				id: 'CSE-s8-subj2', 
+				name: 'Internet of Things', 
+				description: 'IoT Technologies', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
+			semesters[7].subjects[2] = { 
+				id: 'CSE-s8-subj3', 
+				name: 'Blockchain Technology', 
+				description: 'Blockchain Fundamentals', 
+				pdfLink: 'https://drive.google.com/file/d/1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93/view',
+				pdfSource: 'google-drive',
+				driveId: '1kXlX5dYy43_qP1iDu3gp6jfUo8g5iX93',
+				isAvailable: true
+			};
 
 			return semesters;
 		})()
