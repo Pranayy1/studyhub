@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Upload Helper</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 30px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        .info-box h3 {
+            color: #1976d2;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .info-box code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+        .warning-box {
+            background: #fff3e0;
+            border: 1px solid #ff9800;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        .warning-box h3 {
+            color: #f57c00;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .success-box {
+            background: #e8f5e9;
+            border: 1px solid #4caf50;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        .path-display {
+            background: #263238;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            word-break: break-all;
+        }
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #5568d3;
+        }
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+        }
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Document Upload Helper</h1>
+        <p class="subtitle">Use this tool to find the correct path and filename for your PDF documents</p>
+
+        <div class="section">
+            <h2>📍 Step 1: Select Document Details</h2>
+            <div class="form-group">
+                <label for="resourceType">Resource Type:</label>
+                <select id="resourceType" onchange="updatePath()">
+                    <option value="rgpv-notes">RGPV Notes</option>
+                    <option value="shivani-books">Shivani Books</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="course">Course:</label>
+                <select id="course" onchange="updatePath()">
+                    <option value="btech-cse">B.Tech CSE</option>
+                    <option value="btech-me">B.Tech ME</option>
+                    <option value="btech-ee">B.Tech EE</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="semester">Semester:</label>
+                <select id="semester" onchange="updatePath()">
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject Number:</label>
+                <select id="subject" onchange="updatePath()">
+                    <option value="1">Subject 1</option>
+                    <option value="2">Subject 2</option>
+                    <option value="3">Subject 3</option>
+                    <option value="4">Subject 4</option>
+                    <option value="5">Subject 5</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📁 Step 2: Upload Location</h2>
+            <div class="info-box">
+                <h3>Place your PDF file here:</h3>
+                <div class="path-display" id="folderPath">Loading...</div>
+            </div>
+            <div class="info-box">
+                <h3>Name your file as:</h3>
+                <div class="path-display" id="fileName">Loading...</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ Step 3: Update Code</h2>
+            <div class="warning-box">
+                <h3>⚠️ Important: Update constants.js</h3>
+                <p>After uploading the PDF, find this subject in <code>constants.js</code> and set:</p>
+                <div class="path-display">isAvailable: true</div>
+            </div>
+            
+            <div class="success-box">
+                <h3>✅ Subject ID to find in constants.js:</h3>
+                <div class="path-display" id="subjectId">Loading...</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Quick Upload Checklist</h2>
+            <ol class="steps">
+                <li>Copy the PDF file to the folder path shown above</li>
+                <li>Rename the PDF file to match the filename shown above</li>
+                <li>Open <code>constants.js</code> in your code editor</li>
+                <li>Search for the Subject ID shown above</li>
+                <li>Change <code>isAvailable: false</code> to <code>isAvailable: true</code></li>
+                <li>Save the file and refresh your website</li>
+                <li>Test the View and Download buttons!</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function updatePath() {
+            const resourceType = document.getElementById('resourceType').value;
+            const course = document.getElementById('course').value;
+            const semester = document.getElementById('semester').value;
+            const subject = document.getElementById('subject').value;
+
+            // Get course prefix
+            const coursePrefixes = {
+                'btech-cse': 'CSE',
+                'btech-me': 'ME',
+                'btech-ee': 'EE'
+            };
+            const coursePrefix = coursePrefixes[course] || 'CSE';
+
+            // Build paths
+            let actualCourse = course;
+            if (resourceType === 'shivani-books') {
+                actualCourse = 'shivani-' + course;
+            }
+
+            const folderPath = `public/documents/${resourceType}/${actualCourse}/sem-${semester}/`;
+            const fileName = `${coursePrefix}-s${semester}-subj${subject}.pdf`;
+            const subjectId = `${coursePrefix}-s${semester}-subj${subject}`;
+
+            // Update display
+            document.getElementById('folderPath').textContent = folderPath;
+            document.getElementById('fileName').textContent = fileName;
+            document.getElementById('subjectId').textContent = subjectId;
+        }
+
+        // Initialize on page load
+        updatePath();
+    </script>
+</body>
+</html>

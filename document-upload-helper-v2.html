@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Upload Helper - Local & Google Drive</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 30px;
+        }
+        h1 { color: #333; margin-bottom: 10px; }
+        .subtitle { color: #666; margin-bottom: 30px; font-size: 14px; }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        .tab:hover { color: #667eea; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .section h2 { color: #667eea; margin-bottom: 15px; font-size: 18px; }
+        
+        .form-group { margin-bottom: 15px; }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        textarea { resize: vertical; min-height: 100px; font-family: 'Courier New', monospace; }
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .path-display {
+            background: #263238;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            word-break: break-all;
+            font-size: 14px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        .info-box h3 { color: #1976d2; font-size: 16px; margin-bottom: 8px; }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .btn:hover { background: #5568d3; }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .badge-local { background: #e3f2fd; color: #1976d2; }
+        .badge-drive { background: #fff3e0; color: #f57c00; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 PDF Upload Helper</h1>
+        <p class="subtitle">Choose between Local Storage or Google Drive hosting for your PDFs</p>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('local')">
+                💾 Local Files <span class="badge badge-local">Traditional</span>
+            </button>
+            <button class="tab" onclick="switchTab('drive')">
+                ☁️ Google Drive <span class="badge badge-drive">Cloud</span>
+            </button>
+        </div>
+
+        <!-- LOCAL FILES TAB -->
+        <div id="local-tab" class="tab-content active">
+            <div class="section">
+                <h2>📍 Select Document Details</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Resource Type:</label>
+                        <select id="local-resourceType" onchange="updateLocalPath()">
+                            <option value="rgpv-notes">RGPV Notes</option>
+                            <option value="shivani-books">Shivani Books</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Course:</label>
+                        <select id="local-course" onchange="updateLocalPath()">
+                            <option value="btech-cse">B.Tech CSE</option>
+                            <option value="btech-me">B.Tech ME</option>
+                            <option value="btech-ee">B.Tech EE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Semester:</label>
+                        <select id="local-semester" onchange="updateLocalPath()">
+                            <option value="1">Semester 1</option>
+                            <option value="2">Semester 2</option>
+                            <option value="3">Semester 3</option>
+                            <option value="4">Semester 4</option>
+                            <option value="5">Semester 5</option>
+                            <option value="6">Semester 6</option>
+                            <option value="7">Semester 7</option>
+                            <option value="8">Semester 8</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject Number:</label>
+                        <select id="local-subject" onchange="updateLocalPath()">
+                            <option value="1">Subject 1</option>
+                            <option value="2">Subject 2</option>
+                            <option value="3">Subject 3</option>
+                            <option value="4">Subject 4</option>
+                            <option value="5">Subject 5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📁 Upload Location</h2>
+                <div class="info-box">
+                    <h3>Place your PDF file here:</h3>
+                    <div class="path-display" id="local-folderPath">Loading...</div>
+                </div>
+                <div class="info-box">
+                    <h3>Name your file as:</h3>
+                    <div class="path-display" id="local-fileName">Loading...</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📋 Code to Add in constants.js</h2>
+                <textarea id="local-code" readonly onclick="this.select()"></textarea>
+                <button class="btn" onclick="copyToClipboard('local-code')" style="margin-top: 10px;">📋 Copy Code</button>
+            </div>
+        </div>
+
+        <!-- GOOGLE DRIVE TAB -->
+        <div id="drive-tab" class="tab-content">
+            <div class="section">
+                <h2>📍 Select Document Details</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Resource Type:</label>
+                        <select id="drive-resourceType" onchange="updateDrivePath()">
+                            <option value="rgpv-notes">RGPV Notes</option>
+                            <option value="shivani-books">Shivani Books</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Course:</label>
+                        <select id="drive-course" onchange="updateDrivePath()">
+                            <option value="btech-cse">B.Tech CSE</option>
+                            <option value="btech-me">B.Tech ME</option>
+                            <option value="btech-ee">B.Tech EE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Semester:</label>
+                        <select id="drive-semester" onchange="updateDrivePath()">
+                            <option value="1">Semester 1</option>
+                            <option value="2">Semester 2</option>
+                            <option value="3">Semester 3</option>
+                            <option value="4">Semester 4</option>
+                            <option value="5">Semester 5</option>
+                            <option value="6">Semester 6</option>
+                            <option value="7">Semester 7</option>
+                            <option value="8">Semester 8</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject Number:</label>
+                        <select id="drive-subject" onchange="updateDrivePath()">
+                            <option value="1">Subject 1</option>
+                            <option value="2">Subject 2</option>
+                            <option value="3">Subject 3</option>
+                            <option value="4">Subject 4</option>
+                            <option value="5">Subject 5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>☁️ Google Drive Setup</h2>
+                <div class="form-group">
+                    <label>Paste your Google Drive link here:</label>
+                    <input type="text" id="drive-link" placeholder="https://drive.google.com/file/d/YOUR_FILE_ID/view" oninput="updateDrivePath()">
+                </div>
+                <div class="info-box">
+                    <h3>📋 Steps:</h3>
+                    <ol style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                        <li>Upload PDF to Google Drive</li>
+                        <li>Right-click → "Get link"</li>
+                        <li>Set to "Anyone with the link" (Viewer permission)</li>
+                        <li>Copy and paste the link above</li>
+                    </ol>
+                </div>
+                <div class="info-box" style="margin-top: 15px;">
+                    <h3>Extracted File ID:</h3>
+                    <div class="path-display" id="drive-fileId">Paste link above</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📋 Code to Add in constants.js</h2>
+                <textarea id="drive-code" readonly onclick="this.select()"></textarea>
+                <button class="btn" onclick="copyToClipboard('drive-code')" style="margin-top: 10px;">📋 Copy Code</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (tab === 'local') {
+                document.querySelector('.tab:nth-child(1)').classList.add('active');
+                document.getElementById('local-tab').classList.add('active');
+                updateLocalPath();
+            } else {
+                document.querySelector('.tab:nth-child(2)').classList.add('active');
+                document.getElementById('drive-tab').classList.add('active');
+                updateDrivePath();
+            }
+        }
+
+        // Local file path generation
+        function updateLocalPath() {
+            const resourceType = document.getElementById('local-resourceType').value;
+            const course = document.getElementById('local-course').value;
+            const semester = document.getElementById('local-semester').value;
+            const subject = document.getElementById('local-subject').value;
+
+            const coursePrefixes = {'btech-cse': 'CSE', 'btech-me': 'ME', 'btech-ee': 'EE'};
+            const coursePrefix = coursePrefixes[course];
+
+            let actualCourse = course;
+            if (resourceType === 'shivani-books') {
+                actualCourse = 'shivani-' + course;
+            }
+
+            const folderPath = `public/documents/${resourceType}/${actualCourse}/sem-${semester}/`;
+            const fileName = `${coursePrefix}-s${semester}-subj${subject}.pdf`;
+            const subjectId = `${coursePrefix}-s${semester}-subj${subject}`;
+            const pdfPath = `/documents/${resourceType}/${actualCourse}/sem-${semester}/${fileName}`;
+
+            document.getElementById('local-folderPath').textContent = folderPath;
+            document.getElementById('local-fileName').textContent = fileName;
+
+            const code = `{ 
+  id: '${subjectId}', 
+  name: 'Your Subject Name Here', 
+  description: 'Your subject description here', 
+  pdfLink: '${pdfPath}',
+  pdfSource: 'local',
+  isAvailable: true
+}`;
+
+            document.getElementById('local-code').value = code;
+        }
+
+        // Google Drive path generation
+        function updateDrivePath() {
+            const resourceType = document.getElementById('drive-resourceType').value;
+            const course = document.getElementById('drive-course').value;
+            const semester = document.getElementById('drive-semester').value;
+            const subject = document.getElementById('drive-subject').value;
+            const driveLink = document.getElementById('drive-link').value;
+
+            const coursePrefixes = {'btech-cse': 'CSE', 'btech-me': 'ME', 'btech-ee': 'EE'};
+            const coursePrefix = coursePrefixes[course];
+            const subjectId = `${coursePrefix}-s${semester}-subj${subject}`;
+
+            // Extract file ID from Drive link
+            let fileId = extractDriveFileId(driveLink);
+            document.getElementById('drive-fileId').textContent = fileId || 'Paste a valid Google Drive link above';
+
+            const code = fileId ? `{ 
+  id: '${subjectId}', 
+  name: 'Your Subject Name Here', 
+  description: 'Your subject description here', 
+  pdfLink: 'https://drive.google.com/file/d/${fileId}/view',
+  pdfSource: 'google-drive',
+  driveId: '${fileId}',
+  isAvailable: true
+}` : `// Paste a valid Google Drive link first`;
+
+            document.getElementById('drive-code').value = code;
+        }
+
+        // Extract Drive file ID from various URL formats
+        function extractDriveFileId(url) {
+            if (!url) return null;
+            if (!url.includes('/') && !url.includes('http')) return url;
+            
+            const patterns = [
+                /\/file\/d\/([a-zA-Z0-9_-]+)/,
+                /[?&]id=([a-zA-Z0-9_-]+)/,
+                /\/uc\?id=([a-zA-Z0-9_-]+)/
+            ];
+            
+            for (let pattern of patterns) {
+                const match = url.match(pattern);
+                if (match) return match[1];
+            }
+            return null;
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            element.select();
+            document.execCommand('copy');
+            alert('Code copied to clipboard! ✅\nNow paste it in your constants.js file');
+        }
+
+        // Initialize
+        updateLocalPath();
+    </script>
+</body>
+</html>
